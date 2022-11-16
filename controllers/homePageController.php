@@ -13,24 +13,27 @@ class HomePageController extends Controller
    
     public function actionFormulario()
     {   
+        
         // Estancia da Model de usuários.
         $modelCadastro = new UsuariosInventario;
         // Request Post.
         $requestForm = Yii::$app->request->post();
         // Retorna o numero de registros + 1 para gerar um id para o usuário que está sendo cadastrado.
         $idCadastro = $modelCadastro->actionUsuarioIdConsulta();
-        // var_dump($idCadastro);die;
-       
+        // var_dump($requestForm);die;
+        $this->actionUpdate($requestForm);
         // Popula request com a model
         if($modelCadastro->load($requestForm)){
-
             // Valida post inserido.
             $modelCadastro->validate();
             // Salva no banco.
             $modelCadastro->save();
+
             // Renderiza view de boas vindas.
             return $this->render('confirmacao-formulario',[
-               'modelCadastro' => $modelCadastro
+               'modelCadastro' => $modelCadastro,
+               'requestForm' => $requestForm,
+               'idCadastro' => $idCadastro
                 
             ]);
 
@@ -62,7 +65,10 @@ class HomePageController extends Controller
 
 
     }
-        
+    
+    public function actionUpdate($requestForm){
+        var_dump($requestForm);die;
+    }
 
 
 
