@@ -26,7 +26,8 @@ use yii\bootstrap5\Html;
             <?= $form->field($modelCadastro,'usuario_email'); ?>
             <?= $form->field($modelCadastro, 'usuario_id',['inputOptions' => ['value' => $idCadastro]])->hiddenInput()->label(false) ?>
             <div class="form-group"> <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']); ?> </div>
-            <div class="form-group"> <?= Html::Button('Cancelar', ['id' => 'cancelarEdicao','class' => 'btn btn-danger', 'style' => 'margin-left:92%; margin-top:-59px;']); ?> </div>
+            <div class="form-group"> <?= Html::Button('Cancelar', ['id' => 'cancelarEdicao','class' => 'btn btn-secondary', 'style' => 'margin-left:92%; margin-top:-59px;']); ?> </div><br>
+            <div class="form-group"> <?= Html::Button('Apagar Cadastro', ['id' => 'cancelarEdicao','class' => 'btn btn-danger', 'style' => 'margin-left:80%; margin-top:-155px;']); ?> </div>
         <?php ActiveForm::end();
         ?>
     </div>
@@ -42,7 +43,10 @@ use yii\bootstrap5\Html;
         const camposEditar = document.querySelector("#campos");
         // Faz com que os campos para edição de dados apareçam.
         botaoEditar.addEventListener("click", function(){
-                    camposEditar.style.display = "block";
+                    if(confirm("Deseja editar o seu cadastro?")){
+                        camposEditar.style.display = "block";    
+                    }
+                    
         });
       
         hideFields(botaoEditar, botaoCancelar, camposEditar);
