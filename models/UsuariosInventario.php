@@ -33,7 +33,7 @@ class UsuariosInventario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuario_id', 'usuario_nome', 'usuario_email'], 'required'],
+            [['usuario_id', 'usuario_nome', 'usuario_email'], 'required', 'message' => 'Campo Obrigatório!!!'],
             [['usuario_id', 'usuario_permissao_id'], 'default', 'value' => null],
             [['usuario_id', 'usuario_permissao_id'], 'integer'],
             ['usuario_email', 'email'],
@@ -62,7 +62,12 @@ class UsuariosInventario extends \yii\db\ActiveRecord
         ->count();
         return $query ++;    
         
-        
+    }
+
+    public function actionConsultaUsuExistente($value = null)
+    {   
+        $query = self::find()->orderBy('usuario_id')->where(['usuario_id' => $value ])->all();
+        return $query;
         
     }
 

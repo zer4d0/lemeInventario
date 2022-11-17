@@ -24,7 +24,7 @@ use yii\bootstrap5\Html;
         <?php $form = ActiveForm::begin() ?>
             <?= $form->field($modelCadastro,'usuario_nome')->textInput( ['id' => 'corLetra']); ?>
             <?= $form->field($modelCadastro,'usuario_email'); ?>
-            <?= $form->field($modelCadastro, 'usuario_id',['inputOptions' => ['value' => $idCadastro + 1]])->hiddenInput()->label(false) ?>
+            <?= $form->field($modelCadastro, 'usuario_id',['inputOptions' => ['value' => $idCadastro]])->hiddenInput()->label(false) ?>
             <div class="form-group"> <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']); ?> </div>
             <div class="form-group"> <?= Html::Button('Cancelar', ['id' => 'cancelarEdicao','class' => 'btn btn-danger', 'style' => 'margin-left:92%; margin-top:-59px;']); ?> </div>
         <?php ActiveForm::end();
