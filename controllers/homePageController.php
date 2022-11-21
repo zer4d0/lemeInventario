@@ -12,66 +12,56 @@ class HomePageController extends Controller
 {   
     public function actionFormulario()
     {   
-        // Estancia da Model de usuários.
-        $modelCadastro = new UsuariosInventario;
-        // Request Post.
-        $requestForm = Yii::$app->request->post();
-        // Retorna o numero de registros + 1 para gerar um id para o usuário que está sendo cadastrado.
-        $idCadastro = $modelCadastro->actionUsuarioIdConsulta();
-       
-        // Popula request com a model
-        if($modelCadastro->load($requestForm)){
-            // Valida post inserido.
-            $modelCadastro->validate();
-            // Salva no banco.
-            $modelCadastro->save();
-            if(isset($requestForm)){
-                return $this->actionBoasVindas($modelCadastro, $requestForm, $idCadastro);
-            }
-        }  
-        
-        return $this->render('formulario',[
-            'modelCadastro' => $modelCadastro,
-            'idCadastro' => $idCadastro
-        ]);
+        $model = new UsuariosInventario;
+        $request = Yii::$app->request->post();
+        $consultaIdBanco = $model->actionUsuarioIdConsulta();
+        $novoId = $consultaIdBanco + 1;
+        if(empty($request)){
+            return $this->render('formulario',[
+                'model' => $model,
+                'request' => $request,
+                'novoId'  => $novoId,
+
+            ]);
+        }
+      
     }
 
-    public function actionBoasVindas($modelCadastro, $requestForm, $idCadastro)
+    public function actionBoasVindas()
     {
-        if(!$modelCadastro->validate()){
-            $this->actionUpdateUsuario($modelCadastro, $idCadastro, $requestForm);    
-         }
 
-        $idUsuario = $modelCadastro->usuario_id;
-        return $this->render('boas-vindas',[
-            'modelCadastro' => $modelCadastro,
-            'requestForm' => $requestForm,
-            'idCadastro' => $idCadastro
-             
-         ]);
-       
-    }
+        $model = new UsuariosInventario;
+        $request = Yii::$app->request->post();
+        $consultaIdBanco = $model->actionUsuarioIdConsulta();
+        if($model->validate($request)){
+            $model->load($request);
+            $model->save();
+            $idCadastro = $request['UsuariosInventario']['usuario_id'];
+            $resultado = $model->actionConsultaUsuExistente($idCadastro);
+            
+        }
 
-    public function actionUpdateUsuario($modelCadastro, $idCadastro, $requestForm)
-    {   
-        $usuarios = UsuariosInventario::findOne($modelCadastro->usuario_id);
-        $usuarios->usuario_nome = $modelCadastro->usuario_nome;
-        $usuarios->usuario_email = $modelCadastro->usuario_email;
-        $usuarios->save();
+        if(!empty($resultado)){
+            $resultado->usuario_nome = $request['UsuariosInventario']['usuario_nome'];
+            $resultado->usuario_email = $request['UsuariosInventario']['usuario_email'];
+            $resultado->save();
+
+        }
 
         return $this->render('boas-vindas',[
-            'modelCadastro' => $modelCadastro,
-            'requestForm' => $requestForm,
-            'idCadastro' => $idCadastro
-             
-         ]);
+            'model' => $model,
+            'request' => $request,
+            'idCadastro'  => $idCadastro,
+
+        ]);
+
+        
         
 
-    }
 
+    }
 
 }
-
 
 
 

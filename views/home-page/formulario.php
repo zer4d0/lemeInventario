@@ -13,11 +13,16 @@ use yii\bootstrap5\Html;
 
 <center><h2>Sistema de inventário Leme Forense</h2></center>
 
-<?php $form = ActiveForm::begin() ?>
+<?php 
+    $form = ActiveForm::begin([
+        'method' => 'post',
+        'action' => 'boas-vindas'
+    ]) 
+?>
     
-    <?= $form->field($modelCadastro,'usuario_nome')->textInput( ['id' => 'corLetra']); ?>
-    <?= $form->field($modelCadastro,'usuario_email'); ?>
-    <?= $form->field($modelCadastro, 'usuario_id',['inputOptions' => ['value' => $idCadastro + 1]])->hiddenInput()->label(false) ?>
+    <?= $form->field($model,'usuario_nome')->textInput( ['id' => 'corLetra']); ?>
+    <?= $form->field($model,'usuario_email'); ?>
+    <?= $form->field($model, 'usuario_id',['inputOptions' => ['value' => $novoId ]])->hiddenInput()->label(false) ?>
     <div class="form-group"> <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']); ?> </div>
            
 <?php ActiveForm::end();

@@ -60,13 +60,19 @@ class UsuariosInventario extends \yii\db\ActiveRecord
         $query = self::find()
         ->select(['usuario_id'])
         ->count();
-        return $query ++;    
+        return $query;
         
     }
 
-    public function actionConsultaUsuExistente($value = null)
+    public function actionConsultaUsuExistente($value = 0)
     {   
-        $query = self::find()->orderBy('usuario_id')->where(['usuario_id' => $value ])->all();
+        $query = self::findOne($value);
+        // if(!$value === $query){
+
+        //     $query[0]['usuario_nome'] = $values['UsuariosInventario']['usuario_nome'];
+        //     $query[0]['usuario_id'] = $values['UsuariosInventario']['usuario_id'];
+        //     $query[0]['usuario_email'] = 10;
+        // }
         return $query;
         
     }
