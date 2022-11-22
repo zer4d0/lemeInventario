@@ -20,10 +20,7 @@ use yii\bootstrap5\Html;
     ]) 
 ?>
     
-    <?= $form->field($model,'usuario_nome')->textInput( ['id' => 'corLetra']); ?>
-    <?= $form->field($model,'usuario_email'); ?>
-    <?= $form->field($model, 'usuario_id',['inputOptions' => ['value' => $novoId ]])->hiddenInput()->label(false) ?>
-    <div class="form-group"> <?= Html::submitButton('Enviar', ['class' => 'btn btn-primary']); ?> </div>
+  <p>Seus dados foram apagados!! </P>
            
 <?php ActiveForm::end();
 ?>

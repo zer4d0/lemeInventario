@@ -67,12 +67,6 @@ class UsuariosInventario extends \yii\db\ActiveRecord
     public function actionConsultaUsuExistente($value = 0)
     {   
         $query = self::findOne($value);
-        // if(!$value === $query){
-
-        //     $query[0]['usuario_nome'] = $values['UsuariosInventario']['usuario_nome'];
-        //     $query[0]['usuario_id'] = $values['UsuariosInventario']['usuario_id'];
-        //     $query[0]['usuario_email'] = 10;
-        // }
         return $query;
         
     }

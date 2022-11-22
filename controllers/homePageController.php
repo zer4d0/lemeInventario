@@ -27,11 +27,12 @@ class HomePageController extends Controller
       
     }
 
-    public function actionBoasVindas()
+    public function actionEditarCadastro()
     {
 
         $model = new UsuariosInventario;
         $request = Yii::$app->request->post();
+        // var_dump($request);die;
         $consultaIdBanco = $model->actionUsuarioIdConsulta();
         if($model->validate($request)){
             $model->load($request);
@@ -55,8 +56,23 @@ class HomePageController extends Controller
 
         ]);
 
-        
-        
+
+    }
+
+    public function actionRemoveUsuario()
+    {
+
+        $model = new UsuariosInventario;
+        $request = Yii::$app->request->post();
+        $requestId = $request['UsuariosInventario']['usuario_id'];
+        $consultaIdBanco = $model->actionConsultaUsuExistente($requestId);
+        if(isset($consultaIdBanco)){
+            $consultaIdBanco->delete();
+        }
+
+        return $this->render('remove-usuario',[
+            
+        ]);
 
 
     }

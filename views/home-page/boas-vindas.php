@@ -14,7 +14,7 @@ use yii\bootstrap5\Html;
 <?php 
     $form = ActiveForm::begin([
         'method' => 'post',
-        'action' => 'aaaaaaaaaaa',
+        'action' => 'remove-usuario',
     ])
 
 ?>
@@ -27,14 +27,14 @@ use yii\bootstrap5\Html;
                 <li>Nome: <?= $request['UsuariosInventario']['usuario_nome']; ?></li>
                 <li>E-mail: <?= $request['UsuariosInventario']['usuario_email']; ?></li>
             </ul>   
-            <p> Deseja editar seus dados? Caso não, clique em prosseguir. </p>
-            <button id="editarValores" onclick="showFields()" legend="Editar Dados" class=" fa-regular fa-pen-to-square" type="submit"></button>
+            <p> Deseja editar ou remover seus dados? </p>
+            <button id="editarValores" onclick="showFields()" class=" fa-regular fa-pen-to-square" type="button"></button>
+            <button id="removerValores" class="fa-regular fa-trash-can type="submit"></button>
         </div>
     </div>
     <br>
     
     <div class="container" id="campos" style="display:none;"> 
-        <?php $form = ActiveForm::begin() ?>
             <?= $form->field($model,'usuario_nome')->textInput( ['id' => 'corLetra']); ?>
             <?= $form->field($model,'usuario_email'); ?>
             <?= $form->field($model, 'usuario_id',['inputOptions' => ['value' => $idCadastro]])->hiddenInput()->label(false) ?>
