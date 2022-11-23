@@ -33,8 +33,9 @@ class UsuariosInventario extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['usuario_id', 'usuario_nome', 'usuario_email'], 'required', 'message' => 'Campo Obrigatório!!!'],
+            [['usuario_id', 'usu_ativo', 'usuario_nome', 'usuario_email'], 'required', 'message' => 'Campo Obrigatório!!!'],
             [['usuario_id', 'usuario_permissao_id'], 'default', 'value' => null],
+            [['usu_ativo'], 'default', 'value' => true],
             [['usuario_id', 'usuario_permissao_id'], 'integer'],
             ['usuario_email', 'email'],
             [['usuario_nome', 'usuario_email'], 'string', 'max' => 100],
@@ -52,6 +53,7 @@ class UsuariosInventario extends \yii\db\ActiveRecord
             'usuario_nome' => 'Nome completo ou Apelido',
             'usuario_email' => 'E-mail',
             'usuario_permissao_id' => '',
+            'usu_ativo' => 'Manter ativo'
         ];
     }
 

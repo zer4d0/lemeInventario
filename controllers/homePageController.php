@@ -30,9 +30,9 @@ class HomePageController extends Controller
     public function actionEditarCadastro()
     {
 
+        // Salva dados usuário no ato da criação
         $model = new UsuariosInventario;
         $request = Yii::$app->request->post();
-        // var_dump($request);die;
         $consultaIdBanco = $model->actionUsuarioIdConsulta();
         if($model->validate($request)){
             $model->load($request);
@@ -42,11 +42,14 @@ class HomePageController extends Controller
             
         }
 
+        // Atualiza o cadastro
         if(!empty($resultado)){
             $resultado->usuario_nome = $request['UsuariosInventario']['usuario_nome'];
             $resultado->usuario_email = $request['UsuariosInventario']['usuario_email'];
+            $resultado->usu_ativo = $request['UsuariosInventario']['usu_ativo'];
             $resultado->save();
-
+            $this->actionRemoveUsuario($resultado);
+            
         }
 
         return $this->render('boas-vindas',[
@@ -59,20 +62,14 @@ class HomePageController extends Controller
 
     }
 
-    public function actionRemoveUsuario()
+    public function actionRemoveUsuario($resultado)
     {
-
-        $model = new UsuariosInventario;
-        $request = Yii::$app->request->post();
-        $requestId = $request['UsuariosInventario']['usuario_id'];
-        $consultaIdBanco = $model->actionConsultaUsuExistente($requestId);
-        if(isset($consultaIdBanco)){
-            $consultaIdBanco->delete();
+     
+        if($resultado->usu_ativo == 0){
+           echo("usuario inativado com sucesso.");
+           die;
         }
-
-        return $this->render('remove-usuario',[
-            
-        ]);
+        
 
 
     }
