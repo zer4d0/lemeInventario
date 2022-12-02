@@ -57,6 +57,7 @@ class UsuariosInventario extends \yii\db\ActiveRecord
         ];
     }
 
+    // Consulta a quantidade de registros no banco, a fim de incrementar com +1 e gerar um novo ID de usuário.
     public function actionUsuarioIdConsulta()
     {
         $query = self::find()
@@ -66,6 +67,7 @@ class UsuariosInventario extends \yii\db\ActiveRecord
         
     }
 
+    // Consulta se existe um ID no banco de acordo com o campo de id do POST.
     public function actionConsultaUsuExistente($value = 0)
     {   
         $query = self::findOne($value);
